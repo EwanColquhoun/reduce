@@ -6,6 +6,10 @@
 
 
 // Summing an array of numbers:
+const nums = [0, 1, 2, 3, 4,]
+let sum = nums.reduce((acc, curr) => acc + curr, 0);
+
+console.log(sum);
 
 
 const teamMembers = [
@@ -28,10 +32,52 @@ const teamMembers = [
     name: 'Kelly',
     profession: 'Designer',
     yrsExperience: 3
+  },
+  {
+    name: 'Mark',
+    profession: 'Manager',
+    yrsExperience: 10
   }
 ];
 
 // Totaling a specific object property
+const totalExperience = teamMembers.reduce((acc, curr) => acc + curr.yrsExperience, 0)
+console.log(totalExperience);
 
 
 // Grouping by a property, and totaling it too
+let experienceByProfession = teamMembers.reduce((acc, curr) => {
+  let key = curr.profession;
+  if (!acc[key]) {
+    acc[key] = curr.yrsExperience;
+  } else {
+    acc[key] += curr.yrsExperience;
+  }
+  return acc;
+}, {});
+
+console.log(experienceByProfession);
+
+//
+
+let nameByProfession = teamMembers.reduce((acc, curr) => {
+  let prof = curr.profession;
+  if (!acc[prof]) {
+    acc[prof] = curr.name;
+  } else {
+    acc[prof] += `, ${curr.name}`;
+  }
+  return acc;
+}, []);
+
+console.log(nameByProfession);
+
+//
+function getmaxExpName(acc, cur) {
+  acc = acc.max > cur.yrsExperience ? acc: {name:cur.name, experience:cur.yrsExperience, profession:cur.profession};
+  return acc;
+};
+
+let nameMaxExperience = teamMembers.reduce(getmaxExpName);
+
+console.log(nameMaxExperience)
